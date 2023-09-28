@@ -1,3 +1,5 @@
+import transformer_utils
+from sympy import false
 from transformers import DistilBertTokenizer, DistilBertForQuestionAnswering
 import torch
 
@@ -9,7 +11,7 @@ def answer_question(question, context):
     input_ids = encoding["input_ids"]
     attention_mask = encoding["attention_mask"]
 
-    start_scores, end_scores = model(input_ids, attention_mask=attention_mask)
+    start_scores, end_scores = model(input_ids, attention_mask=attention_mask, return_dict = false)
 
     start_index = torch.argmax(start_scores)
     end_index = torch.argmax(end_scores)

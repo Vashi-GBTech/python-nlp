@@ -11,6 +11,14 @@ def answer_question(question, context):
 
     start_scores, end_scores = model(input_ids, attention_mask=attention_mask)
 
+    # Assuming you have start_scores and end_scores as strings, convert them to tensors
+    start_scores_tensor = torch.tensor(start_scores)
+    end_scores_tensor = torch.tensor(end_scores)
+
+    # Now you can apply argmax to these tensors
+    start_index = torch.argmax(start_scores_tensor)
+    end_index = torch.argmax(end_scores_tensor)
+
     start_index = torch.argmax(start_scores)
     end_index = torch.argmax(end_scores)
 
