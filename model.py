@@ -1,3 +1,6 @@
+# import transformer_utils
+
+from sympy import false
 from transformers import DistilBertTokenizer, DistilBertForQuestionAnswering
 import torch
 
@@ -9,15 +12,7 @@ def answer_question(question, context):
     input_ids = encoding["input_ids"]
     attention_mask = encoding["attention_mask"]
 
-    start_scores, end_scores = model(input_ids, attention_mask=attention_mask)
-
-    # Assuming you have start_scores and end_scores as strings, convert them to tensors
-    start_scores_tensor = torch.tensor(start_scores)
-    end_scores_tensor = torch.tensor(end_scores)
-
-    # Now you can apply argmax to these tensors
-    start_index = torch.argmax(start_scores_tensor)
-    end_index = torch.argmax(end_scores_tensor)
+    start_scores, end_scores = model(input_ids, attention_mask=attention_mask, return_dict = false)
 
     start_index = torch.argmax(start_scores)
     end_index = torch.argmax(end_scores)
@@ -27,11 +22,11 @@ def answer_question(question, context):
 
     return answer
 
-context = "DistilBERT is a lightweight version of BERT that is efficient for various NLP tasks. It has been pre-trained on large amounts of text data."
+context = input("Enter Your Thoughts Here :  ")
 
-question1 = "What is DistilBERT?"
-question2 = "What is the benefit of using DistilBERT?"
-question3 = "Which tasks can DistilBERT be used for?"
+question1 = input("Ask me a question : ")
+question2 = input("Next question please : ")
+question3 = input("Next question please : ")
 
 answer1 = answer_question(question1, context)
 answer2 = answer_question(question2, context)
@@ -40,3 +35,4 @@ answer3 = answer_question(question3, context)
 print(f"Q: {question1}\nA: {answer1}")
 print(f"Q: {question2}\nA: {answer2}")
 print(f"Q: {question3}\nA: {answer3}")
+
