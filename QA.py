@@ -1,5 +1,6 @@
 from datasets import load_dataset, load_metric
 from transformers import DistilBertTokenizerFast, AutoModelForSequenceClassification, DataCollatorWithPadding, Trainer, TrainingArguments
+from transformers import AutoModelForSequenceClassification
 
 # Define the checkpoint and load the dataset
 checkpoint = "distilbert-base-uncased"
